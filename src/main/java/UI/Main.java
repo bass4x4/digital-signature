@@ -12,8 +12,6 @@ import javax.crypto.Cipher;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -172,6 +170,11 @@ public class Main extends JFrame {
         }
     }
 
+    public void newFile() {
+        textArea.setText("");
+        cipherWindow.setTitle(cipherWindow.getTitle() + String.format(" Автор документа: %s", currentUser));
+    }
+
     public void saveFile() {
         try {
             MessageDigest mdHashFunction = MessageDigest.getInstance("MD2");
@@ -232,7 +235,7 @@ public class Main extends JFrame {
         importedKey = null;
         importedUser = null;
         chooseUserButton.setEnabled(true);
-        cipherWindow.setTitle("Подписанный документ");
+        cipherWindow.setTitle("Главное меню");
     }
 
     public JPanel getMainPanel() {
@@ -271,12 +274,12 @@ public class Main extends JFrame {
         mainPanel.add(chooseUserButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
+
     /**
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
     }
-
 }
 

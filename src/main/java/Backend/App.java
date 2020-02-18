@@ -3,13 +3,14 @@ package Backend;
 import UI.Main;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
 
     private static final List<JMenuItem> MENU_ITEMS = new ArrayList<>();
-    public static final JFrame CIPHER_WINDOW = new JFrame("Auth window");
+    public static final JFrame CIPHER_WINDOW = new JFrame("Главное меню");
     public static final Main MAIN = new Main(CIPHER_WINDOW);
 
     public static void main(String[] args) {
@@ -29,18 +30,15 @@ public class App {
     private static JMenu createFileMenu() {
         JMenu jMenu = new JMenu("Файл");
         JMenuItem menuItem = new JMenuItem("Создать");
+        menuItem.addActionListener(actionEvent -> MAIN.newFile());
         MENU_ITEMS.add(menuItem);
         jMenu.add(menuItem);
         JMenuItem menuItem1 = new JMenuItem("Загрузить");
-        menuItem1.addActionListener(actionEvent -> {
-            MAIN.loadFile();
-        });
+        menuItem1.addActionListener(actionEvent -> MAIN.loadFile());
         MENU_ITEMS.add(menuItem1);
         jMenu.add(menuItem1);
         JMenuItem menuItem2 = new JMenuItem("Сохранить");
-        menuItem2.addActionListener(actionEvent -> {
-            MAIN.saveFile();
-        });
+        menuItem2.addActionListener(actionEvent -> MAIN.saveFile());
         MENU_ITEMS.add(menuItem2);
         jMenu.add(menuItem2);
         jMenu.addSeparator();
@@ -48,7 +46,8 @@ public class App {
         menuItem3.addActionListener(actionEvent -> System.exit(1));
         jMenu.add(menuItem3);
         jMenu.addSeparator();
-        jMenu.add(new JMenuItem("О программе"));
+        JMenuItem menuItem4 = new JMenuItem(new AboutAction());
+        jMenu.add(menuItem4);
         return jMenu;
     }
 
@@ -75,5 +74,24 @@ public class App {
 
     public static void enableMenuItems(boolean enabled) {
         MENU_ITEMS.forEach(jMenuItem -> jMenuItem.setEnabled(enabled));
+    }
+
+    private static class AboutAction extends AbstractAction {
+        AboutAction() {
+            putValue(NAME, "О программе");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            JOptionPane.showMessageDialog(null, "Лабораторную выполнил Анкушев А.Д.\n" +
+                    "Группа А-05-16\n" +
+                    "Вариант №1\n" +
+                    "\n" +
+                    "Алгоритм хеширования документа : MD5\n" +
+                    "Алгоритм подписи документа : RSA\n" +
+                    "Алгоритм хеширования открытого ключа : MD5\n" +
+                    "Алгоритм подписи открытого ключа : RSA\n" +
+                    "МЭИ, 2020.", "Лабораторная №1", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }
