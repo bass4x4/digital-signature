@@ -52,23 +52,14 @@ public class App {
     }
 
     private static JMenu createKeyMenu() {
-        JMenu jMenu = new JMenu("Управление ключами");
-        JMenuItem menuItem = new JMenuItem("Экспорт открытого ключа");
-        menuItem.addActionListener(actionEvent -> MAIN.savePublicKey());
-        MENU_ITEMS.add(menuItem);
+        JMenu jMenu = new JMenu("Управление сертификатами");
+        JMenuItem menuItem = new JMenuItem("Импорт сертификата");
+        menuItem.addActionListener(actionEvent -> MAIN.importCert());
         jMenu.add(menuItem);
-        JMenuItem menuItem1 = new JMenuItem("Импорт открытого ключа");
-        menuItem1.addActionListener(actionEvent -> MAIN.importPublicKey());
+        JMenuItem menuItem1 = new JMenuItem("Удалить сертификат");
+        menuItem1.addActionListener(actionEvent -> MAIN.removeCert());
         MENU_ITEMS.add(menuItem1);
         jMenu.add(menuItem1);
-        JMenuItem menuItem2 = new JMenuItem("Удаление пары ключей");
-        menuItem2.addActionListener(actionEvent -> {
-            MAIN.removeKeys();
-            enableMenuItems(false);
-            MAIN.requestTextfieldFocus();
-        });
-        MENU_ITEMS.add(menuItem2);
-        jMenu.add(menuItem2);
         return jMenu;
     }
 
